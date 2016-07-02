@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<html>
+  <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title><%= title %></title>
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+  
+  </head>
+  <body>
+      <div>
+          <center>
+              <h1>Notifikasi</h1>
+              <h2>Keterangan : </h2>
+              <p id="suhu">Suhu (dalam C) : </p>
+              <p id="timestamp">Timestamp : </p>
+              <p id="status">Status : </p>
+              ==================================
+              <h2>Klasifikasi :
+              <p><38 : Aman</p>
+              <p>38-60 : Sedang</p>
+              <p>>60 : Rawan</p>
+          </center>  
+      </div>
+  </body>
+</html>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script>
+    jQuery(function ($) {
+        // -------------------------------------------------------
+        var datahadir;
+        var respontime;
+        var socket = io.connect();
+        $count = 1;
+        socket.on('data', function (data) {
+            suhu = data.suhu;
+            timestamp = data.timestamp
+            $('#suhu').replaceWith('<p id=suhu>' + suhu + '</p>');
+            $('#timestamp').replaceWith('<p id=timestamp>' + timestamp + '</p>');
+
+            $count++;
+        });
+
+    });
+</script>
